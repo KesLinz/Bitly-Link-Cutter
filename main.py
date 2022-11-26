@@ -44,13 +44,13 @@ def main():
     )
     parser.add_argument('url', help='Ваша ссылка или битлинк')
     args = parser.parse_args()
+    url = args.url
 
     load_dotenv('.env')
     token = os.environ['BITLY_TOKEN']
     header = {
         'Authorization': f'Bearer {token}'
     }
-    url = args.url
 
     if is_bitlink(header, url):
         print('Кол-во кликов по ссылке', count_clicks(header, url))
