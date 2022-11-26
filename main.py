@@ -4,6 +4,7 @@ import argparse
 from dotenv import load_dotenv
 from pathlib import Path
 
+
 def is_bitlink(header, url):
     response = requests.get(
         f'https://api-ssl.bitly.com/v4/bitlinks/{url}',
@@ -12,19 +13,19 @@ def is_bitlink(header, url):
 
     return response.ok
 
-    
+
 def shorten_link(header, url):
     body = {
-        'long_url' : url
+        'long_url': url
     }
-      
+
     response = requests.post(
         'https://api-ssl.bitly.com/v4/bitlinks',
         headers=header,
         json=body
     )
     response.raise_for_status()
-    
+
     return response.json()['id']
 
 
@@ -40,7 +41,7 @@ def count_clicks(header, bitlink):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Эта программа из ссылки делает битлинк и считает кол-во кликов по битлинку'
+        description='Cсылку превращает в битлинк и считает кол-во кликов'
     )
     parser.add_argument('url', help='Ваша ссылка или битлинк')
     args = parser.parse_args()
@@ -50,7 +51,7 @@ def main():
 
     token = os.environ['BITLY_TOKEN']
     header = {
-        'Authorization' : f'Bearer {token}'
+        'Authorization': f'Bearer {token}'
     }
     url = args.url
 
@@ -58,7 +59,7 @@ def main():
         print('Кол-во кликов по ссылке', count_clicks(header, url))
     else:
         print('Битлинк', shorten_link(header, url))
-        
-        
+
+
 if __name__ == '__main__':
     main()
