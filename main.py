@@ -2,7 +2,6 @@ import os
 import requests
 import argparse
 from dotenv import load_dotenv
-from pathlib import Path
 
 
 def is_bitlink(header, url):
@@ -46,9 +45,7 @@ def main():
     parser.add_argument('url', help='Ваша ссылка или битлинк')
     args = parser.parse_args()
 
-    env_path = Path('.') / '.env'
-    load_dotenv(dotenv_path=env_path)
-
+    load_dotenv('.env')
     token = os.environ['BITLY_TOKEN']
     header = {
         'Authorization': f'Bearer {token}'
