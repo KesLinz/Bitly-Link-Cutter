@@ -2,7 +2,7 @@ import os
 import requests
 import argparse
 from dotenv import load_dotenv
-from pathlib import Path  # python3 only
+from pathlib import Path
 
 def is_bitlink(header, url):
     response = requests.get(
